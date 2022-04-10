@@ -86,9 +86,22 @@ function mostrarPlatos(platos) {
 		categoria.classList.add('col-md-3');
 		categoria.textContent = categorias[plato.categoria];
 
+		const inputCantidad = document.createElement('input');
+		inputCantidad.type = 'number';
+		inputCantidad.min = 0;
+		inputCantidad.value = 0;
+		inputCantidad.id = `producto-${plato.id}`;
+		inputCantidad.classList.add('form-control');
+
+		const agregar = document.createElement('div');
+		agregar.classList.add('col-md-2');
+
+		agregar.appendChild(inputCantidad);
+
 		row.appendChild(nombre);
 		row.appendChild(precio);
 		row.appendChild(categoria);
+		row.appendChild(agregar);
 
 		contenido.appendChild(row);
 	});
