@@ -136,8 +136,9 @@ function agregarPlato(producto) {
 			cliente.pedido = [...pedido, producto];
 		}
 	} else {
-		console.log('No es mayor a 0');
-	}
+		//* Eliminar elemento cuando la cantidad es 0
+		const resultado = pedido.filter((articulo) => articulo.id !== producto.id);
 
-	console.log(cliente.pedido);
+		cliente.pedido = [...resultado];
+	}
 } //Fin agregarPlato
