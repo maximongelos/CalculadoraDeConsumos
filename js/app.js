@@ -206,19 +206,19 @@ function actualizarResumen() {
 
 		const precioArticulo = document.createElement('p');
 		precioArticulo.classList.add('fw-bold');
-		precioArticulo.textContent = 'Precio total: $';
+		precioArticulo.textContent = 'Precio total:';
 
 		const precioSpan = document.createElement('span');
 		precioSpan.classList.add('fw-normal');
-		precioSpan.textContent = precio;
+		precioSpan.textContent = ` $ ${precio}`;
 
 		const subtotalArticulo = document.createElement('p');
 		subtotalArticulo.classList.add('fw-bold');
-		subtotalArticulo.textContent = 'Subtotal: $';
+		subtotalArticulo.textContent = 'Subtotal:';
 
 		const subtotalSpan = document.createElement('span');
 		subtotalSpan.classList.add('fw-normal');
-		subtotalSpan.textContent = precio * cantidad;
+		subtotalSpan.textContent = calcularSubtotal(precio, cantidad);
 
 		//* Agregando elemento a su contenedor
 		cantidadArticulo.appendChild(cantidadSpan);
@@ -250,3 +250,7 @@ function limpiarHTML() {
 		contenido.removeChild(contenido.firstChild);
 	}
 } //Fin limpiarHTML
+
+function calcularSubtotal(precio, cantidad) {
+	return ` $ ${precio * cantidad} `;
+}
