@@ -114,5 +114,30 @@ function mostrarPlatos(platos) {
 } //Fin mostrarPlatos
 
 function agregarPlato(producto) {
-	console.log(producto);
+	//* Extraer el pedido actual
+	let {pedido} = cliente;
+
+	//* Revisar que cantidad sea mayor a 0
+	if (producto.cantidad > 0) {
+		//* Compruebo si el elemento ya existe en el array
+		if (pedido.some((articulo) => articulo.id === producto.id)) {
+			//*El producto ya existe, actualizar cantidad
+			const pedidoActualizado = pedido.map((articulo) => {
+				if (articulo.id === producto.id) {
+					articulo.cantidad = producto.cantidad;
+				}
+				return articulo;
+			});
+
+			//Se asigna el nuevo array a cliente.pedido
+			cliente.pedido = [...pedidoActualizado];
+		} else {
+			//El articulo no existe, lo agregamos al array de pedido
+			cliente.pedido = [...pedido, producto];
+		}
+	} else {
+		console.log('No es mayor a 0');
+	}
+
+	console.log(cliente.pedido);
 } //Fin agregarPlato
