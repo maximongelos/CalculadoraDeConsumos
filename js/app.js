@@ -49,12 +49,12 @@ function guardarCliente() {
 
 	//* Obtener platos de la api de JSON-server
 	obtenerPlatos();
-}
+} //Fin guardarCliente
 
 function mostrarSecciones() {
 	const seccionesOcultas = document.querySelectorAll('.d-none');
 	seccionesOcultas.forEach((seccion) => seccion.classList.remove('d-none'));
-}
+} //Fin mostrarSecciones
 
 function obtenerPlatos() {
 	const url = 'http://localhost:4000/platillos';
@@ -63,7 +63,7 @@ function obtenerPlatos() {
 		.then((respuesta) => respuesta.json())
 		.then((platos) => mostrarPlatos(platos))
 		.catch((error) => console.error(error));
-}
+} //Fin obtenerPlatos
 
 function mostrarPlatos(platos) {
 	const contenido = document.querySelector('#platillos .contenido');
@@ -93,6 +93,12 @@ function mostrarPlatos(platos) {
 		inputCantidad.id = `producto-${plato.id}`;
 		inputCantidad.classList.add('form-control');
 
+		//* Funcion que detecta la cantidad y el plato que se esta agregando
+		inputCantidad.onchange = function () {
+			const cantidad = parseInt(inputCantidad.value);
+			agregarPlato({...plato, cantidad});
+		};
+
 		const agregar = document.createElement('div');
 		agregar.classList.add('col-md-2');
 
@@ -104,5 +110,9 @@ function mostrarPlatos(platos) {
 		row.appendChild(agregar);
 
 		contenido.appendChild(row);
-	});
-}
+	}); //Fin forEach
+} //Fin mostrarPlatos
+
+function agregarPlato(producto) {
+	console.log(producto);
+} //Fin agregarPlato
