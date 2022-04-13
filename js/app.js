@@ -144,8 +144,12 @@ function agregarPlato(producto) {
 
 	limpiarHTML();
 
-	//* Mostrar el resumen
-	actualizarResumen();
+	if (cliente.pedido.length) {
+		//* Mostrar el resumen
+		actualizarResumen();
+	} else {
+		msjPedidoVacio();
+	}
 } //Fin agregarPlato
 
 function actualizarResumen() {
@@ -220,6 +224,16 @@ function actualizarResumen() {
 		subtotalSpan.classList.add('fw-normal');
 		subtotalSpan.textContent = calcularSubtotal(precio, cantidad);
 
+		//* Boton para eliminar
+		const btnEliminar = document.createElement('button');
+		btnEliminar.classList.add('btn', 'btn-danger');
+		btnEliminar.textContent = 'Eliminar del pedido';
+
+		//* Function para eliminar un producto
+		btnEliminar.onclick = function () {
+			eliminarProducto(id);
+		};
+
 		//* Agregando elemento a su contenedor
 		cantidadArticulo.appendChild(cantidadSpan);
 		precioArticulo.appendChild(precioSpan);
@@ -230,6 +244,7 @@ function actualizarResumen() {
 		lista.appendChild(cantidadArticulo);
 		lista.appendChild(precioArticulo);
 		lista.appendChild(subtotalArticulo);
+		lista.appendChild(btnEliminar);
 
 		// *Agregar lista al grupo principal
 		grupo.appendChild(lista);
@@ -253,4 +268,37 @@ function limpiarHTML() {
 
 function calcularSubtotal(precio, cantidad) {
 	return ` $ ${precio * cantidad} `;
+} //Fin calcularSubtotal
+
+function eliminarProducto(id) {
+	const {pedido} = cliente;
+
+	const resultado = pedido.filter((articulo) => articulo.id !== id);
+
+	cliente.pedido = [...resultado];
+
+	limpiarHTML();
+
+	if (cliente.pedido.length) {
+		//* Mostrar el resumen
+		actualizarResumen();
+	} else {
+		msjPedidoVacio();
+	}
+
+	//* El producto se elimino por lo tanto regresamos a 0 el input
+	const productoEliminado = `#producto-${id}`;
+
+	const inputEliminado = document.querySelector(productoEliminado);
+	inputEliminado.value = 0;
 }
+
+function msjPedidoVacio() {
+	const contenido = document.querySelector('#resumen .contenido');
+
+	const texto = document.createElement('p');
+	texto.classList.add('text-center');
+	texto.textContent = 'Añade los elementos al pedido';
+
+	contenido.appendChild(texto);
+} //Fin msjPedidoVacio
