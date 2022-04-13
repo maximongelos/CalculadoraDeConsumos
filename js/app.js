@@ -156,7 +156,7 @@ function actualizarResumen() {
 	const contenido = document.querySelector('#resumen .contenido');
 
 	const resumen = document.createElement('div');
-	resumen.classList.add('col-md-6', 'card', 'py-5', 'px-3', 'shadow');
+	resumen.classList.add('col-md-6', 'card', 'py-2', 'px-3', 'shadow');
 
 	//* Info mesa
 	const mesa = document.createElement('p');
@@ -250,12 +250,15 @@ function actualizarResumen() {
 		grupo.appendChild(lista);
 	});
 
+	resumen.appendChild(heading);
 	resumen.appendChild(mesa);
 	resumen.appendChild(hora);
-	resumen.appendChild(heading);
 	resumen.appendChild(grupo);
 
 	contenido.appendChild(resumen);
+
+	//* Mostrar el formulario de propinas
+	formularioPropinas();
 } //Fin actualizarResumen
 
 function limpiarHTML() {
@@ -302,3 +305,21 @@ function msjPedidoVacio() {
 
 	contenido.appendChild(texto);
 } //Fin msjPedidoVacio
+
+function formularioPropinas() {
+	const contenido = document.querySelector('#resumen .contenido');
+
+	const formulario = document.createElement('div');
+	formulario.classList.add('col-md-6', 'formulario');
+
+	const divForm = document.createElement('div');
+	divForm.classList.add('card', 'py-2', 'px-3', 'shadow');
+
+	const heading = document.createElement('h3');
+	heading.classList.add('my-4', 'text-center');
+	heading.textContent = 'Propina';
+
+	divForm.appendChild(heading);
+	formulario.appendChild(divForm);
+	contenido.appendChild(formulario);
+} //Fin formularioPropinas
